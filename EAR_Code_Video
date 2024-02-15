@@ -21,6 +21,7 @@ landmarkFinder = dlib.shape_predictor(FACIAL_LANDMARK_PREDICTOR)  # dlib's landm
 
 # timer variable used to keep track of elasped time
 time = 0
+ear = 0
 
 def eye_aspect_ratio(eye):
     p2_minus_p6 = dist.euclidean(eye[1], eye[5])
@@ -60,15 +61,17 @@ while True:
         if ear < MINIMUM_EAR:
             cv2.putText(frame, "Drowsiness", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
         # for playing note.wav file
-        if time>5:
+        if time>2:
             # start timer
             # if statement that activates time after x number of seconds
             playsound('BEEP.mp3')
             print('playing sound using  playsound')
             time = 0
         cv2.imshow("Frame", frame)
-    if ear <0.198:
+    if ear <0.205:
         time=time+1
+    else:
+        time=0
     if cv2.waitKey(1) == ord('q'):
         break
 cap.release()
