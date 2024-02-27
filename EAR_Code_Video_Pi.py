@@ -88,10 +88,10 @@ while True:
         leftEyeHull = cv2.convexHull(leftEye)
         rightEyeHull = cv2.convexHull(rightEye)
 
-        cv2.drawContours(frame, [leftEyeHull], -1, (255, 0, 0), 2)
-        cv2.drawContours(frame, [rightEyeHull], -1, (255, 0, 0), 2)
+        #cv2.drawContours(frame, [leftEyeHull], -1, (255, 0, 0), 2)
+        #cv2.drawContours(frame, [rightEyeHull], -1, (255, 0, 0), 2)
 
-        cv2.putText(frame, "EAR: {}".format(round(ear, 3)), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+        #cv2.putText(frame, "EAR: {}".format(round(ear, 3)), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
     
     th1 = threading.Thread(target=beep)    
     if ear < MINIMUM_EAR and cooldown == 0:
@@ -115,17 +115,17 @@ while True:
         cooldown2 = 0
         pi.write(4, 0)
 
-    if ear < MINIMUM_EAR or (sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
-        cv2.putText(frame, "Drowsiness", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+    #if ear < MINIMUM_EAR or (sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
+        #cv2.putText(frame, "Drowsiness", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-    if cooldown > 0:
-        cv2.putText(frame, "{}".format(round(cooldown - time.time(), 2)), (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+    #if cooldown > 0:
+        #cv2.putText(frame, "{}".format(round(cooldown - time.time(), 2)), (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
         
-    cv2.putText(frame, "Eye Width Ratio: {}".format(round(sidelook_ratio, 2)), (200, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+    #cv2.putText(frame, "Eye Width Ratio: {}".format(round(sidelook_ratio, 2)), (200, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-    cv2.imshow("Frame", frame)
+    #cv2.imshow("Frame", frame)
 
     if cv2.waitKey(1) == ord('q'):
         break
-cv2.destroyAllWindows() 
+#cv2.destroyAllWindows() 
 
