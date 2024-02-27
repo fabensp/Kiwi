@@ -41,6 +41,7 @@ def eye_aspect_ratio(eye):
 
 def beep():
     pi.write(5, 1)
+    print('beep!')
 
 picam2 = Picamera2()
 config = picam2.create_preview_configuration(main={'size': (1920, 1080), 'format': 'XRGB8888'})
