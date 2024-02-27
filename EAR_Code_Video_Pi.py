@@ -94,6 +94,8 @@ while True:
 
         #cv2.putText(frame, "EAR: {}".format(round(ear, 3)), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
     
+    print("EAR: {}".format(ear))
+
     th1 = threading.Thread(target=beep)    
     if ear < MINIMUM_EAR and cooldown == 0:
         cooldown = time.time() + COOLDOWN
