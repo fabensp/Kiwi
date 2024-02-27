@@ -4,10 +4,11 @@ import imutils
 import time
 from imutils import face_utils
 from scipy.spatial import distance as dist
-from playsound import playsound
 import threading
 from picamera2 import Picamera2
+import pigpio
 
+pi = pigpio.pi()
 
 #Global Configuration Variables
 FACIAL_LANDMARK_PREDICTOR = "shape_predictor_68_face_landmarks.dat"  # path to dlib's pre-trained facial landmark predictor
@@ -39,7 +40,7 @@ def eye_aspect_ratio(eye):
     return ear
 
 def beep():
-    playsound("BEEP.mp3")
+    pi.write(4, 1)
 
 picam2 = Picamera2()
 config = picam2.create_preview_configuration(main={'size': (1920, 1080), 'format': 'XRGB8888'})
@@ -97,10 +98,11 @@ while True:
         cooldown = time.time() + COOLDOWN
     elif ear < MINIMUM_EAR and time.time() >= cooldown:
         cooldown = 0
-        th_cd = time.time() + 2
+        th_cd = time.time() + 3
         th1.start()
     elif time.time() >= cooldown:
         cooldown = 0
+        pi.write(4, 0)
 
     th2 = threading.Thread(target=beep)    
     if (sidelook_ratio > 1.2 or sidelook_ratio < 0.8) and cooldown2 == 0:
@@ -111,6 +113,7 @@ while True:
         th2.start()
     elif time.time() >= cooldown2:
         cooldown2 = 0
+        pi.write(4, 0)
 
     if ear < MINIMUM_EAR or (sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
         cv2.putText(frame, "Drowsiness", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
