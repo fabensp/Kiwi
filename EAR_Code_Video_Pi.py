@@ -22,15 +22,10 @@ landmarkFinder = dlib.shape_predictor(FACIAL_LANDMARK_PREDICTOR)  # dlib's landm
 (rightEyeStart, rightEyeEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
 # timer variable used to keep track of elasped time
-cooldown = 0
 ear = 0
-cooldown2 = 0
 sidelook_ratio = 0
-th_cd = 0
-th_cd2 = 0
 
 MINIMUM_EAR = 0.15
-COOLDOWN = 3
 
 def eye_aspect_ratio(eye):
     p2_minus_p6 = dist.euclidean(eye[1], eye[5])
@@ -38,10 +33,6 @@ def eye_aspect_ratio(eye):
     p1_minus_p4 = dist.euclidean(eye[0], eye[3])
     ear = (p2_minus_p6 + p3_minus_p5) / (2.0 * p1_minus_p4)
     return ear
-
-def beep():
-    pi.write(17, 1)
-    print('beep!')
 
 picam2 = Picamera2()
 config = picam2.create_preview_configuration(main={'size': (1920, 1080), 'format': 'XRGB8888'})
@@ -96,26 +87,10 @@ while True:
     
     print("EAR: {}".format(ear))
 
-    th1 = threading.Thread(target=beep)    
-    if ear < MINIMUM_EAR and cooldown == 0:
-        cooldown = time.time() + COOLDOWN
-    elif ear < MINIMUM_EAR and time.time() >= cooldown:
-        cooldown = 0
-        th_cd = time.time() + 3
-        th1.start()
-    elif time.time() >= cooldown:
-        cooldown = 0
-        pi.write(17, 0)
-
-    th2 = threading.Thread(target=beep)    
-    if (sidelook_ratio > 1.2 or sidelook_ratio < 0.8) and cooldown2 == 0:
-        cooldown2 = time.time() + COOLDOWN
-    elif (sidelook_ratio > 1.2 or sidelook_ratio < 0.8) and time.time() >= cooldown2:
-        cooldown2 = 0
-        th_cd2 = time.time() + 2
-        th2.start()
-    elif time.time() >= cooldown2:
-        cooldown2 = 0
+    if ear < MINIMUM_EAR or sidelook_ratio > 1.2 or sidelook_ratio < 0.8:
+        print("beep!")
+        pi.write(17, 1)
+    else:
         pi.write(17, 0)
 
     #if ear < MINIMUM_EAR or (sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
