@@ -40,7 +40,7 @@ def eye_aspect_ratio(eye):
     return ear
 
 def beep():
-    pi.write(5, 1)
+    pi.write(17, 1)
     print('beep!')
 
 picam2 = Picamera2()
@@ -105,7 +105,7 @@ while True:
         th1.start()
     elif time.time() >= cooldown:
         cooldown = 0
-        pi.write(5, 0)
+        pi.write(17, 0)
 
     th2 = threading.Thread(target=beep)    
     if (sidelook_ratio > 1.2 or sidelook_ratio < 0.8) and cooldown2 == 0:
@@ -116,7 +116,7 @@ while True:
         th2.start()
     elif time.time() >= cooldown2:
         cooldown2 = 0
-        pi.write(5, 0)
+        pi.write(17, 0)
 
     #if ear < MINIMUM_EAR or (sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
         #cv2.putText(frame, "Drowsiness", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
