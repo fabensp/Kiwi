@@ -62,6 +62,7 @@ while True:
 
     if not faces:
         ear = -1
+        sidelook_ratio = -1
 
     for face in faces:
         faceLandmarks = landmarkFinder(gray, face)
