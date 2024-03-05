@@ -61,7 +61,7 @@ while True:
     faces = faceDetector(gray)
 
     if not faces:
-        ear = 0.05
+        ear = -1
 
     for face in faces:
         faceLandmarks = landmarkFinder(gray, face)
@@ -80,30 +80,14 @@ while True:
         leftEyeHull = cv2.convexHull(leftEye)
         rightEyeHull = cv2.convexHull(rightEye)
 
-        #cv2.drawContours(frame, [leftEyeHull], -1, (255, 0, 0), 2)
-        #cv2.drawContours(frame, [rightEyeHull], -1, (255, 0, 0), 2)
-
-        #cv2.putText(frame, "EAR: {}".format(round(ear, 3)), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-    
     print("EAR: {}".format(ear))
 
-    if ear < MINIMUM_EAR or sidelook_ratio > 1.2 or sidelook_ratio < 0.8:
+    if ear is not -1 and (ear < MINIMUM_EAR or sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
         print("beep!")
         pi.write(17, 1)
     else:
         pi.write(17, 0)
 
-    #if ear < MINIMUM_EAR or (sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
-        #cv2.putText(frame, "Drowsiness", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-
-    #if cooldown > 0:
-        #cv2.putText(frame, "{}".format(round(cooldown - time.time(), 2)), (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-        
-    #cv2.putText(frame, "Eye Width Ratio: {}".format(round(sidelook_ratio, 2)), (200, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-
-    #cv2.imshow("Frame", frame)
-
     if cv2.waitKey(1) == ord('q'):
         break
-#cv2.destroyAllWindows() 
 
