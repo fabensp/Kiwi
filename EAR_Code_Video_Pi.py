@@ -82,7 +82,7 @@ while True:
 
     print("EAR: {}".format(ear))
 
-    if ear is not -1 and (ear < MINIMUM_EAR or sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
+    if ear != -1 and (ear < MINIMUM_EAR or sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
         print("beep!")
         pi.write(17, 1)
     else:
