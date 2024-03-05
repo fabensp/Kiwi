@@ -80,7 +80,7 @@ while True:
         leftEyeHull = cv2.convexHull(leftEye)
         rightEyeHull = cv2.convexHull(rightEye)
 
-    print("EAR: {}".format(ear))
+    print("EAR: {} Sidelook: {}".format(round(ear, 2), round(sidelook_ratio, 2)))
 
     if ear != -1 and (ear < MINIMUM_EAR or sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
         print("beep!")
