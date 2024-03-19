@@ -25,7 +25,7 @@ landmarkFinder = dlib.shape_predictor(FACIAL_LANDMARK_PREDICTOR)  # dlib's landm
 ear = 0
 sidelook_ratio = 0
 
-pt = 0
+pt = time.time
 t = time.time
 
 MINIMUM_EAR = 0.15
@@ -84,7 +84,8 @@ while True:
         leftEyeHull = cv2.convexHull(leftEye)
         rightEyeHull = cv2.convexHull(rightEye)
 
-    print(t - pt)
+    dt = t - pt
+    print(dt)
 
     pt = t
     t = time.time
