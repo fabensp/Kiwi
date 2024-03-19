@@ -25,6 +25,9 @@ landmarkFinder = dlib.shape_predictor(FACIAL_LANDMARK_PREDICTOR)  # dlib's landm
 ear = 0
 sidelook_ratio = 0
 
+pt = 0
+t = time.time
+
 MINIMUM_EAR = 0.15
 
 def eye_aspect_ratio(eye):
@@ -81,10 +84,12 @@ while True:
         leftEyeHull = cv2.convexHull(leftEye)
         rightEyeHull = cv2.convexHull(rightEye)
 
-    print("EAR: {} Sidelook: {}".format(round(ear, 2), round(sidelook_ratio, 2)))
+    print(t - pt)
+
+    pt = t
+    t = time.time
 
     if ear != -1 and (ear < MINIMUM_EAR or sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
-        print("beep!")
         pi.write(17, 1)
     else:
         pi.write(17, 0)
