@@ -25,8 +25,8 @@ landmarkFinder = dlib.shape_predictor(FACIAL_LANDMARK_PREDICTOR)  # dlib's landm
 ear = 0
 sidelook_ratio = 0
 
-pt = time.time
-t = time.time
+pt = time.time()
+t = time.time()
 
 MINIMUM_EAR = 0.15
 
@@ -88,7 +88,7 @@ while True:
     print(dt)
 
     pt = t
-    t = time.time
+    t = time.time()
 
     if ear != -1 and (ear < MINIMUM_EAR or sidelook_ratio > 1.2 or sidelook_ratio < 0.8):
         pi.write(17, 1)
