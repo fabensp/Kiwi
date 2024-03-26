@@ -25,7 +25,7 @@ def eye_aspect_ratio(eye):
     return ear
 
 
-image = cv2.imread("9.jpg")
+image = cv2.imread("10.png")
 image = imutils.resize(image, width=800)
 grayImage = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
